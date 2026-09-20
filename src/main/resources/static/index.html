@@ -90,21 +90,20 @@
         function configurarSesion() {
             const username = localStorage.getItem('username') || sessionStorage.getItem('username');
             const authButton = document.getElementById('authButton');
-            const welcomeMessage = document.getElementById('welcomeMessage');
 
+            // Si el usuario no está validado, redirigir inmediatamente al login
             if (!username) {
-                authButton.innerHTML = '<div class="fx-jitter">Log In</div>';
-                authButton.onclick = () => { window.location.href = './login.html'; };
+                window.location.replace('./login.html');
                 return;
             }
 
+            // Si está validado, configurar el botón para cerrar sesión
             authButton.innerHTML = '<div class="fx-jitter">Cerrar sesión</div>';
             authButton.onclick = () => {
                 localStorage.removeItem('username');
                 sessionStorage.removeItem('username');
-                window.location.reload();
+                window.location.reload(); // Al recargar sin usuario, redirigirá al login
             };
-            welcomeMessage.textContent = `Bienvenido (${username})`;
         }
 
         function generarResumen(texto, max = 50) {
